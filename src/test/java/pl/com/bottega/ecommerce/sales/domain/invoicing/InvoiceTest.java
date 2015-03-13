@@ -41,26 +41,30 @@ public class InvoiceTest {
 		Invoice invoice = new InvoiceFactory().create(client);
 		TaxPolicy taxPolicy = new DefaultTaxPolicy();
 
-		ProductData product = new ProductData(Id.generate(), new Money(10d), "Product1", ProductType.DRUG, new Date());
-		int quantity = 7;
-		Money net = new Money(15d);
+		ProductData product;
+		int quantity;
+		Money net;
+
+		product = new ProductData(Id.generate(), new Money(10d), "Product1", ProductType.DRUG, new Date());
+		quantity = 7;
+		net = new Money(15d);
 		Tax tax = taxPolicy.calculateTax(product.getType(), net);
 		invoice.addItem(new InvoiceLine(product, quantity, net, tax));
 
-		product = new ProductData(Id.generate(), new Money(5d), "Product1", ProductType.DRUG, new Date());
+		product = new ProductData(Id.generate(), new Money(5d), "Product2", ProductType.FOOD, new Date());
 		quantity = 10;
 		net = new Money(10d);
 		tax = taxPolicy.calculateTax(product.getType(), net);
 		invoice.addItem(new InvoiceLine(product, quantity, net, tax));
 
-		product = new ProductData(Id.generate(), new Money(4.5d), "Product1", ProductType.DRUG, new Date());
+		product = new ProductData(Id.generate(), new Money(4.5d), "Product3", ProductType.STANDARD, new Date());
 		quantity = 22;
 		net = new Money(5d);
 		tax = taxPolicy.calculateTax(product.getType(), net);
 		invoice.addItem(new InvoiceLine(product, quantity, net, tax));
 
 		assertThat(invoice.getItems().size(), is(3));
-		assertThat(invoice.getGros(), is(new Money(31.5)));
+		assertThat(invoice.getGros(), is(new Money(32.6)));
 		assertThat(invoice.getNet(), is(new Money(30.0)));
 
 	}
