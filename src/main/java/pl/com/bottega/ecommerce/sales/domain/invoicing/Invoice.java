@@ -37,6 +37,7 @@ public class Invoice  {
 	private List<InvoiceLine> items;
 
 
+	@SuppressWarnings("unused")
 	private Id id;
 
 	Invoice(Id invoiceId, ClientData client) {

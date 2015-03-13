@@ -27,6 +27,7 @@ public class Payment {
 
 	private PaymentFactory paymentFactory;
 
+	@SuppressWarnings("unused")
 	private Id aggregateId;
 
 
